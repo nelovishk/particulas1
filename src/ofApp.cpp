@@ -2,9 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    windowWidth = 500;
-    windowHeight = 500;
-    grid = new particleGrid(3, 3, windowWidth, windowHeight);
+    windowWidth = 1280;
+    windowHeight = 800;
+    grid = new particleGrid(250, 80, windowWidth, windowHeight);
     
     blur.setup(windowWidth, windowHeight, 16, .1);
     ofBackground(0,0,0);
@@ -15,23 +15,29 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    blur.setBrightness(.2);
-    blur.setScale(.15);
+    blur.setBrightness(.0001);
+    blur.setScale(.05);
     
     grid->update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    blur.begin();
+    if(doBlur) {
+        blur.begin();
+    }
+    
     grid->draw();
-    blur.end();
-    blur.draw();
+    
+    if(doBlur) {
+        blur.end();
+        blur.draw();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    doBlur = !doBlur;
 }
 
 //--------------------------------------------------------------

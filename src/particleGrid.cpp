@@ -24,6 +24,8 @@ particleGrid::particleGrid(int nr, int nc, int ww, int wh) {
             particle p = particle();
             p.tileHeight = windowHeight / numRows;
             p.tileWidth = windowWidth / numColumns;
+            p.windowHeight = windowHeight;
+            p.windowWidth = windowWidth;
             p.setPosition(i, j);
             
             if(i > 0) {

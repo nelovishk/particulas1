@@ -25,6 +25,8 @@ public:
     int numCol;
     float tileWidth;
     float tileHeight;
+    int windowHeight;
+    int windowWidth;
     float x;
     float y;
     

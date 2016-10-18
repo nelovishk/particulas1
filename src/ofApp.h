@@ -27,4 +27,5 @@ public:
     int windowHeight;
     
     ofxBlur blur;
+    bool doBlur = false;
 };

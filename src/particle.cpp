@@ -14,13 +14,14 @@ particle::particle() {
     tileWidth = 0;
     tileHeight = 0;
     
-    myColor.r = ofRandom(0, 255);
-    myColor.g = ofRandom(220, 255);
-    myColor.b = ofRandom(230, 255);
+    myColor.r = ofRandom(150, 255);
+    myColor.g = ofRandom(230, 255);
+    myColor.b = ofRandom(150, 255);
     myColor.a = 255;
     radius = 1.5;
+    //y = rand() % 800;
     y = 0;
-    x = 0;
+    x = rand() % 1280;
 }
 
 void particle::setPosition(int nr, int nc) {
@@ -34,22 +35,27 @@ void particle::setTileDimensions(float tw, float th) {
 }
 
 void particle::updatePosition() {
+    int frameNum = ofGetFrameNum();
+    float floatFrameNum = frameNum;
     if(!hasParent) {
         float maxDisplacementX = 5;
-        float maxDisplacementY = 50;
-        float frameNum = ofGetFrameNum();
-        float displaceX = (cos(frameNum / 10) * maxDisplacementX);
-        float displaceY = (sin((frameNum - (numCol)) / 100) * maxDisplacementY);
+        float maxDisplacementY = windowHeight / 2;
+
+        //float displaceX = (cos(floatFrameNum / 10) * maxDisplacementX);
+        float displaceY = (sin((floatFrameNum - (numCol * 10)) / 30) * maxDisplacementY);
         x = (tileWidth * numCol) + (tileWidth / 2);
-        y = (tileHeight * numRow) + (tileHeight / 2) + displaceY;
+        y = (windowHeight / 2) + displaceY;
+    }
+    else if (frameNum % 3600 == 0) {
+        //y = rand() % 800;
+        y = 0;
+        x = rand() % 1280;
     }
     else {
-        //x = (tileWidth * numCol) + (tileWidth / 2);
-        //y = (tileHeight * numRow) + (tileHeight / 2);
         particle p = *parent;
-        printf("Parent has position in x %f", p.x);
-        x = p.x + 5;
-        y = p.y + 5;
+        float speed = .09;
+        x += (p.x - x) * speed;
+        y += (p.y - y) * speed;
     }
 }
 
